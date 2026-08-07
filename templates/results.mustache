@@ -1,0 +1,197 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_nicesurvey/results
+
+    Results.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * none
+
+    Example context (json):
+    {
+    }
+}}
+
+<div class="d-flex align-items-center justify-content-between">
+    <h4 class="mb-3">{{#str}}numofusers, mod_nicesurvey{{/str}}: {{{numofusers}}}{{^anonymous}}/{{{numofallusers}}}{{/anonymous}}</h4>
+
+    <div class="d-flex flex-grow-0">
+        {{^anonymous}}
+            <div id="ns-delete-user-answers" class="modal hide fade">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{#str}}deleteanswers, mod_nicesurvey{{/str}} ({{{numofusers}}})</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="ns-delete-answers-form" action="" method="post">
+                                <input type="hidden" name="id" value="{{{cmid}}}">
+                                <input type="hidden" name="deleteanswerskey" value="{{{sesskey}}}">
+                                <ul class="list-group">
+                                    <li class="list-group-item mb3">
+                                        <div class="form-group">
+                                            <input id="ns-delete-answers-select-all" name="selectdeleteanswers" type="checkbox">
+                                            <label for="ns-delete-answers-select-all">{{#str}}selectall, mod_nicesurvey{{/str}}</label>
+                                        </div>
+                                    </li>
+                                    {{#users}}
+                                        <li class="list-group-item">
+                                            <label class="form-group">
+                                                <input name="deleteanswers[]" type="checkbox" value="{{{id}}}">
+                                                <a href="{{{profileurl}}}" target="_blank">{{{fullname}}}</a>
+                                            </label>
+                                        </li>
+                                    {{/users}}
+                                </ul>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="d-flex justify-content-end">
+                                <button id="ns-delete-answer-action" class="btn btn-outline-danger" type="submit">{{#str}}deleteanswersselected, mod_nicesurvey{{/str}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-link"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#ns-delete-user-answers"
+            >{{#str}}deleteanswers, mod_nicesurvey{{/str}} ({{{numofusers}}})</button>
+
+            <div id="ns-not-answered-users" class="modal hide fade">
+                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{#str}}notansweredusers, mod_nicesurvey{{/str}} ({{{numofnotansweredusers}}})</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                {{#notansweredusers}}
+                                    <li class="list-group-item"><a href="{{{profileurl}}}" target="_blank">{{{fullname}}}</a></li>
+                                {{/notansweredusers}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-link"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#ns-not-answered-users"
+            >{{#str}}notansweredusers, mod_nicesurvey{{/str}} ({{{numofnotansweredusers}}})</button>
+        {{/anonymous}}
+
+        <a class="btn btn-link" href="{{{exporturl}}}" target="_blank">{{#str}}exportresults, mod_nicesurvey{{/str}}</a>
+    </div>
+</div>
+
+<ul class="list-group">
+    {{#results}}
+        <li class="list-group-item">
+            <h4 class="mb-3">{{{title}}}</h4>
+            <div class="mb-3">{{{description}}}</div>
+            <div class="mb-3">
+                <ul class="list-unstyled">
+                    {{#answers}}
+                        <li class="{{#haschart}}d-flex flex-wrap flex-sm-nowrap{{/haschart}}">
+                            <div class="d-flex justify-content-start align-items-center flex-nowrap col-12 {{#haschart}}col-sm-6{{/haschart}}">
+                                {{#haschart}}
+                                    <div class="mr-1"
+                                         style="
+                                            width: 16px;
+                                            min-width: 16px;
+                                            max-width: 16px;
+                                            height: 16px;
+                                            min-height: 16px;
+                                            max-height: 16px;
+                                            background-color: {{{chart.color}}};
+                                         "
+                                    ></div>
+                                {{/haschart}}
+
+                                <div class="mr-1">{{{value}}}</div>
+
+                                <div id="ns-answer-details-{{{id}}}-{{{uid}}}" class="modal hide fade">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">{{{title}}} {{#annotation}}<small class="text-muted">({{{annotation}}})</small>{{/annotation}}</h5>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-bordered table-condenced table-sm table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{{#str}}userfullname, mod_nicesurvey{{/str}}</th>
+                                                        <th>{{#str}}answer, mod_nicesurvey{{/str}}</th>
+                                                        <th>{{#str}}dateanswered, mod_nicesurvey{{/str}}</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    {{#users}}
+                                                        <tr>
+                                                            <td><a href="{{{userprofile}}}" target="_blank">{{{userfullname}}}</a></td>
+                                                            <td>{{{useranswer}}}</td>
+                                                            <td>{{{dateanswered}}}</td>
+                                                        </tr>
+                                                    {{/users}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-grow-0">
+                                    (<button class="btn btn-link p-0 m-0"
+                                             type="button"
+                                             data-toggle="modal"
+                                             data-target="#ns-answer-details-{{{id}}}-{{{uid}}}"
+                                     >{{{amount}}}/{{{amountpercent}}}%</button>)
+                                </div>
+                            </div>
+
+                            {{#haschart}}
+                            <div class="col-12 col-sm-6 p-1 border-left">
+                                <div title="{{value}}"
+                                     style="
+                                         width: {{{chart.width}}}%;
+                                         height: {{{chart.height}}}px;
+                                         background-color: {{{chart.color}}};
+                                     "></div>
+                            </div>
+                            {{/haschart}}
+                        </li>
+                    {{/answers}}
+                </ul>
+            </div>
+        </li>
+    {{/results}}
+</ul>

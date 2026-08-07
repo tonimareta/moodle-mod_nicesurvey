@@ -1,0 +1,140 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_nicesurvey/questionform
+
+    Question form.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * none
+
+    Example context (json):
+    {
+    }
+}}
+<div id="ns-question-form{{#id}}-{{{id}}}{{/id}}" class="modal hide fade">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{#str}}editquestion, mod_nicesurvey{{/str}} {{#title}}: {{{title}}}{{/title}} {{#annotation}} ({{{annotation}}}){{/annotation}}</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="form" method="POST" action="">
+                    <input type="hidden" name="question[id]" value="{{{id}}}">
+
+                    {{#datatype}}
+                        <input type="hidden" name="question[datatype]" value="{{{datatype}}}">
+                    {{/datatype}}
+
+                    {{^datatype}}
+                        <div class="form-group mb-3">
+                            <label for="ns-question-datatype-{{{id}}}">{{#str}}questiontype, mod_nicesurvey{{/str}}<sup style="color:red">*</sup></label>
+                            <select id="ns-question-datatype-{{{id}}}" class="form-control form-select w-100" name="question[datatype]" required>
+                                <option value="">{{#str}}choose{{/str}}...</option>
+                                {{#datatypes}}
+                                    <option value="{{{id}}}" {{#active}}selected{{/active}}>{{{name}}}</option>
+                                {{/datatypes}}
+                            </select>
+                        </div>
+                    {{/datatype}}
+
+                    <div class="form-group mb-3">
+                        <label for="ns-question-title-{{{id}}}">{{#str}}title, mod_nicesurvey{{/str}}<sup style="color:red">*</sup></label>
+                        <input id="ns-question-title-{{{id}}}" class="form-control" type="text" name="question[title]" value="{{{title}}}" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="ns-question-description-{{{id}}}">{{#str}}description{{/str}}</label>
+                        <textarea id="ns-question-description-{{{id}}}"
+                                  class="form-control"
+                                  name="question[description]"
+                                  rows="10"
+                        >{{{description}}}</textarea>
+                    </div>
+
+                    <div id="ns-question-choices-container-{{{id}}}" data-ns-container="choices">
+                        {{>mod_nicesurvey/choices}}
+                    </div>
+
+                    {{#conditionslength}}
+                        <div class="form-group mb-3">
+                            <label for="ns-question-conditionid-{{{id}}}">{{#str}}conditions, mod_nicesurvey{{/str}}</label>
+                            <select id="ns-question-conditionid-{{{id}}}" class="form-control form-select w-100" name="question[conditionid]">
+                                <option value=""></option>
+                                {{#conditions}}
+                                    <option value="{{{id}}}" {{#active}}selected{{/active}}>{{{title}}}</option>
+                                {{/conditions}}
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="ns-question-conditionvalue-{{{id}}}">{{#str}}musteqalvalue, mod_nicesurvey{{/str}}</label>
+
+                            <select id="ns-question-conditionvalue-{{{id}}}" class="form-control form-select w-100" name="question[conditionvalue]">
+                                {{#condition.data}}
+                                    <option value="{{{value}}}" {{#active}}selected{{/active}}>{{{value}}}</option>
+                                {{/condition.data}}
+                            </select>
+                        </div>
+
+                    <div class="d-none">
+                        {{#conditions}}
+                            {{#data}}
+                                <div data-ns-condition="{{{id}}}">{{{value}}}</div>
+                            {{/data}}
+                        {{/conditions}}
+                    </div>
+
+                    {{/conditionslength}}
+
+                    <div class="form-group mb-3">
+                        <input id="ns-question-required-{{{id}}}"
+                               class="mr-1"
+                               type="checkbox"
+                               name="question[required]"
+                               value="1"
+                               {{#required}}checked{{/required}}
+                        >
+                        <label for="ns-question-required-{{{id}}}">{{#str}}required{{/str}}</label>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="ns-question-sequence-{{{id}}}">{{#str}}sequence, mod_nicesurvey{{/str}}</label>
+                        <input id="ns-question-sequence-{{{id}}}"
+                               class="form-control col-2"
+                               type="number"
+                               name="question[sequence]"
+                               min="0"
+                               value="{{{sequence}}}"
+                        >
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <button class="btn btn-success">{{#str}}save{{/str}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

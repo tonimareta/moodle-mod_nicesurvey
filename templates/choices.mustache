@@ -1,0 +1,81 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_nicesurvey/datatypeform
+
+    Question data types form.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * none
+
+    Example context (json):
+    {
+    }
+}}
+
+{{#datalength}}
+    <div class="form-group mb-3">
+        <label>{{#str}}choices, mod_nicesurvey{{/str}}:</label>
+    </div>
+
+    {{#data}}
+        <div class="form-group mb-3" data-ns-choice-item="{{{item}}}">
+            <label for="question-data-{{{id}}}-item-value-{{{item}}}">{{#str}}value, mod_nicesurvey{{/str}} {{{item}}}</label>
+
+            <div class="d-flex">
+                <input class="form-control" type="hidden" name="question[data][{{{item}}}][item]" value="{{{item}}}">
+                <input id="question-data-{{{id}}}-item-value-{{{item}}}"
+                       class="form-control flex-grow-1"
+                       type="text"
+                       name="question[data][{{{item}}}][value]"
+                       value="{{{value}}}"
+                >
+                <button class="btn btn-default btm-sm flex-grow-0 {{#ismain}}disabled{{/ismain}}"
+                        type="button"
+                        data-ns-choice-action="remove"
+                        {{#ismain}}disabled{{/ismain}}>
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+    {{/data}}
+
+    <div class="form-group mb-3 d-flex justify-content-end">
+        <button class="btn btn-default btn-sm" type="button" data-ns-choice-action="add" data-choice-label="">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+
+    {{#otherincluded}}
+        <div class="form-group mb-3">
+            <input id="ns-question-data-{{{id}}}-has-other-{{{item}}}"
+                   class="mr-1"
+                   type="checkbox"
+                   name="question[hasother]"
+                   value="1"
+                   {{#hasother}}checked{{/hasother}}
+            >
+            <label for="ns-question-data-{{{id}}}-has-other-{{{item}}}">{{#str}}otheroption, mod_nicesurvey{{/str}}</label>
+        </div>
+    {{/otherincluded}}
+{{/datalength}}

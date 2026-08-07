@@ -1,0 +1,84 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_nicesurvey/questions
+
+    Edit questions.
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * none
+
+    Example context (json):
+    {
+    }
+}}
+
+{{#newquestion}}
+    {{>mod_nicesurvey/question }}
+
+    <div class="d-none">
+        {{#conditions}}
+            {{#data}}
+                <div data-ns-condition="{{{id}}}">{{{value}}}</div>
+            {{/data}}
+        {{/conditions}}
+    </div>
+{{/newquestion}}
+
+<div class="d-flex align-items-start justify-content-between mb-3">
+    <a class="btn btn-outline-dark" href="{{{exporturl}}}" target="_blank">{{#str}}exportquestions, mod_nicesurvey{{/str}}</a>
+    <button class="btn btn-outline-dark" data-toggle="modal" data-target="#ns-question-form">{{#str}}addquestion, mod_nicesurvey{{/str}}</button>
+</div>
+
+<h3>{{#str}}questions, mod_nicesurvey{{/str}} ({{{questionslength}}})</h3>
+<ul class="list-group">
+    {{#questions}}
+        <li class="list-group-item">
+            <div class="d-flex align-items-start justify-content-between">
+                <div class="flex-grow-1">
+                    <h4 class="mb-3" title="{{#required}}{{#str}}required{{/str}}{{/required}}">
+                        <span>{{{title}}}</span>
+                        <small class="text-muted">({{{annotation}}})</small>
+                        {{#required}}<sup style="color:red">*</sup>{{/required}}
+                    </h4>
+                    {{#conditionid}}
+                        <div class="mb-3">
+                            <small class="text-muted">"{{{condition.title}}}" - {{#str}}musteq, mod_nicesurvey{{/str}}: "{{{conditionvalue}}}"</small>
+                        </div>
+                    {{/conditionid}}
+                    <div class="mb-3">{{{description}}}</div>
+                </div>
+
+                {{>mod_nicesurvey/question }}
+
+                <div class="d-flex flex-grow-0">
+                    <a href="{{{movequestionupurl}}}" class="btn btn-default btn-sm mr-1"><i class="fa fa-arrow-up"></i></a>
+                    <a href="{{{movequestiondownurl}}}" class="btn btn-default btn-sm mr-1"><i class="fa fa-arrow-down"></i></a>
+                    <a href="{{{copyquestionurl}}}" class="btn btn-default btn-sm mr-1"><i class="fa fa-copy"></i></a>
+                    <button class="btn btn-default btn-sm mr-1" data-toggle="modal" data-target="#ns-question-form-{{{id}}}"><i class="fa fa-pencil"></i></button>
+                    <a href="{{{removequestionurl}}}" class="btn btn-default btn-sm" ><i class="fa fa-trash"></i></a>
+                </div>
+            </div>
+        </li>
+    {{/questions}}
+</ul>
