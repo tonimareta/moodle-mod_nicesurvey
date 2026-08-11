@@ -6,36 +6,36 @@ Transform data collection and student feedback within your Moodle environment. T
 
 ## 📑 Table of Contents
 
-- [Features](#-features)
-- [Primary Use Cases](#-primary-use-cases)
-- [System Requirements](#-system-requirements)
-- [Installation](#-installation)
+- [Features](#features)
+- [Primary Use Cases](#primary-use-cases)
+- [System Requirements](#system-requirements)
+- [Installation](#installation)
     - [Method 1: Manual Installation (Zip Upload)](#method-1-manual-installation-zip-upload)
     - [Method 2: Git Clone](#method-2-git-clone)
 
-## ✨ Features
+## Features
 
-### 📊 Real-Time Visual Analytics & Graphing
+### Real-Time Visual Analytics & Graphing
 * **Instant Charting:** Automatically generate clean, interactive visual graphs as responses come in.
 
-### 📁 Seamless Excel Export
+### Seamless Excel Export
 * **One-Click Export:** Download comprehensive raw response datasets directly to `.xlsx` format.
 * **Formatted Spreadsheets:** Exported files maintain clean formatting, metadata headers, and structured tables ready for immediate analysis in Microsoft Excel, Google Sheets, or statistical software.
 
-### ⚙️ Flexible Question Management
+### Flexible Question Management
 * **Diverse Question Types:** Supports one-choice, multiple-choice, short text answer, rating stars, dropdowns and open-ended text fields.
 * **Customizable Structure:** Simple question reordering, conditional question logic.
 * **Reusable Templates:** Save survey configurations as templates to deploy standard evaluations across multiple courses effortlessly.
 
-### 🔒 Anonymous Submission Controls
+### Anonymous Submission Controls
 * **Privacy Assurance:** Fully configurable anonymity settings to protect respondent identities and ensure candid, uninhibited feedback.
 
-### 📅 Date-Driven Availability & Scheduling
+### Date-Driven Availability & Scheduling
 * **Time-Bound Campaigns:** Set precise opening and closing dates and times for survey availability.
 
 ---
 
-## ⚙️ Primary Use Cases
+## Primary Use Cases
 
 * **End-of-Semester Course Evaluations:** Gather student feedback on course structure, instructors, and learning materials.
 * **Institutional Research & Surveys:** Conduct campus-wide or organizational research with strict anonymity and time constraints.
@@ -43,7 +43,7 @@ Transform data collection and student feedback within your Moodle environment. T
 
 ---
 
-## 💻 System Requirements
+## System Requirements
 
 | Feature | Details                       |
 | :--- |:------------------------------|
@@ -51,7 +51,7 @@ Transform data collection and student feedback within your Moodle environment. T
 | **PHP** | 8.1+                          |
 | **Browser** | Latest browser                |
 
-## 🛠️ Installation
+## Installation
 
 ### Method 1: Manual Installation (Zip Upload)
 1. Download the latest release `.zip` package from the [Releases page](../../releases).
