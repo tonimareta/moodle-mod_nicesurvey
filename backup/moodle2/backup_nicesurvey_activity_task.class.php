@@ -55,7 +55,6 @@ class backup_nicesurvey_activity_task extends backup_activity_task {
         global $CFG;
 
         $base = preg_quote($CFG->wwwroot, '/');
-
         $query = '/(' . $base . '\/mod\/nicesurvey\/index.php\?id\=)([0-9]+)/';
         $content = preg_replace($query, '$@NICESURVEYINDEX*$2@$', $content);
         $viewquery = '/(' . $base . '\/mod\/nicesurvey\/view.php\?id\=)([0-9]+)/';

@@ -4,7 +4,16 @@ Transform data collection and student feedback within your Moodle environment. T
 
 ---
 
-## Key Features
+## 📑 Table of Contents
+
+- [Features](#-features)
+- [Primary Use Cases](#-primary-use-cases)
+- [System Requirements](#-system-requirements)
+- [Installation](#-installation)
+    - [Method 1: Manual Installation (Zip Upload)](#method-1-manual-installation-zip-upload)
+    - [Method 2: Git Clone](#method-2-git-clone)
+
+## ✨ Features
 
 ### 📊 Real-Time Visual Analytics & Graphing
 * **Instant Charting:** Automatically generate clean, interactive visual graphs as responses come in.
@@ -26,7 +35,7 @@ Transform data collection and student feedback within your Moodle environment. T
 
 ---
 
-## Primary Use Cases
+## ⚙️ Primary Use Cases
 
 * **End-of-Semester Course Evaluations:** Gather student feedback on course structure, instructors, and learning materials.
 * **Institutional Research & Surveys:** Conduct campus-wide or organizational research with strict anonymity and time constraints.
@@ -34,11 +43,27 @@ Transform data collection and student feedback within your Moodle environment. T
 
 ---
 
-## Technical Overview
+## 💻 System Requirements
 
-| Feature | Details                                            |
-| :--- |:---------------------------------------------------|
-| **Moodle Compatibility** | Moodle 4.5+                                        |
-| **Supported File Formats** | Excel (`.xlsx`)                      |
-| **Access Rights** | Role-based permissions (Manager, Teacher, Student) |
-| **UI Design** | Fully responsive, mobile-friendly interface        |
+| Feature | Details                       |
+| :--- |:------------------------------|
+| **Moodle Compatibility** | Moodle 4.5+                   |
+| **PHP** | 8.1+                          |
+| **Browser** | Latest browser                |
+
+## 🛠️ Installation
+
+### Method 1: Manual Installation (Zip Upload)
+1. Download the latest release `.zip` package from the [Releases page](../../releases).
+2. Log in to your Moodle site as an Administrator.
+3. Navigate to **Site Administration > Plugins > Install plugins**.
+4. Upload the plugin ZIP file into the **ZIP package** area.
+5. Click **Install plugin from the ZIP file** and follow the on-screen database upgrade steps.
+
+### Method 2: Git Clone
+Navigate to your Moodle installation's `mod` directory and clone this repository:
+
+```bash
+cd /path/to/moodle/mod
+git clone https://github.com/tonimareta/moodle-mod_nicesurvey nicesurvey
+```
