@@ -4,7 +4,7 @@ Transform data collection and student feedback within your Moodle environment. T
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Primary Use Cases](#primary-use-cases)
